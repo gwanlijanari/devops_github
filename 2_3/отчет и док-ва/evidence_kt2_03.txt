@@ -1,0 +1,66 @@
+igorsvarc@MacBook-Air-Igor 2_3 % docker compose -f compose.student.yaml config
+name: compose-lab
+services:
+  api:
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    environment:
+      APP_NAME: compose-counter
+      DB_HOST: postgres
+      DB_NAME: devops_course
+      DB_PASSWORD: pswrd
+      DB_PORT: "5432"
+      DB_USER: postgres
+      PORT: "8000"
+      ROLE: api
+    image: devops-student:v1
+    networks:
+      default: null
+  postgres:
+    environment:
+      POSTGRES_DB: devops_course
+      POSTGRES_PASSWORD: pswrd
+      POSTGRES_USER: postgres
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      timeout: 3s
+      interval: 3s
+      retries: 20
+      start_period: 10s
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      API_URL: http://api:8000
+      APP_NAME: compose-counter
+      PORT: "8000"
+      ROLE: web
+    image: devops-student:v1
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        host_ip: 127.0.0.1
+        target: 8000
+        published: "8081"
+        protocol: tcp
+networks:
+  default:
+    name: compose-lab_default
+volumes:
+  postgres_data:
+    name: compose-lab_postgres_data

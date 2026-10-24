@@ -1,0 +1,32 @@
+igorsvarc@MacBook-Air-Igor 2_5 % docker compose -f compose.student.yaml logs web
+web-1  | WEB on 8000
+web-1  | node:internal/deps/undici/undici:14976
+web-1  |       Error.captureStackTrace(err);
+web-1  |             ^
+web-1  | 
+web-1  | TypeError: fetch failed
+web-1  |     at node:internal/deps/undici/undici:14976:13
+web-1  |     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+web-1  |     at async Server.<anonymous> (/app/src/index.js:75:19) {
+web-1  |   [cause]: Error: connect ECONNREFUSED 172.18.0.3:9999
+web-1  |       at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16) {
+web-1  |     errno: -111,
+web-1  |     code: 'ECONNREFUSED',
+web-1  |     syscall: 'connect',
+web-1  |     address: '172.18.0.3',
+web-1  |     port: 9999
+web-1  |   }
+web-1  | }
+web-1  | 
+web-1  | Node.js v20.20.2
+igorsvarc@MacBook-Air-Igor 2_5 % 
+
+
+
+
+
+
+NAME                     IMAGE                COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+compose-lab-api-1        devops-student:v1    "docker-entrypoint.s…"   api        42 minutes ago   Up 42 minutes             8000/tcp
+compose-lab-postgres-1   postgres:16-alpine   "docker-entrypoint.s…"   postgres   43 minutes ago   Up 43 minutes (healthy)   5432/tcp
+compose-lab-web-1        devops-student:v1    "docker-entrypoint.s…"   web        5 seconds ago    Up 5 seconds              127.0.0.1:8081->8000/tcp

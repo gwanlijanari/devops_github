@@ -1,0 +1,9 @@
+igorsvarc@MacBook-Air-Igor 2_2 % docker image inspect devops-student:v1 | grep course.student
+
+                "course.student": "11082007"
+
+
+
+igorsvarc@MacBook-Air-Igor 2_2 % docker run --rm --name student-web -p 127.0.0.1:8081:8000 devops-student:v1
+
+STARTUP_ERROR ECONNREFUSED 

@@ -1,0 +1,25 @@
+igorsvarc@MacBook-Air-Igor 2_4 % docker run -d -p 5001:5000 --name registry registry:2
+12c188830a557ff1a314f8c983b3392e7d6d8889f68a659f52cb9ed193450f3f
+
+igorsvarc@MacBook-Air-Igor 2_4 % docker push localhost:5001/workshop:v1
+
+The push refers to repository [localhost:5001/workshop]
+05c1c429819a: Pushed 
+44136fa355b3: Pushed 
+bda5d7ef971f: Pushed 
+d17f077ada11: Pushed 
+63ae3be0f345: Pushed 
+bcb600375bc7: Pushed 
+0a080a487f9a: Pushed 
+13e45b12880f: Pushed 
+11b0d147f378: Pushed 
+42852fa08f36: Pushed 
+cd322d0ddd02: Pushed 
+v1: digest: sha256:e83cb20f5949cf64a8250db1924537724c8af1edade955b578ec417baea6c55b size: 856
+
+igorsvarc@MacBook-Air-Igor 2_4 % docker pull localhost:5001/workshop:v1
+
+v1: Pulling from workshop
+Digest: sha256:e83cb20f5949cf64a8250db1924537724c8af1edade955b578ec417baea6c55b
+Status: Image is up to date for localhost:5001/workshop:v1
+localhost:5001/workshop:v1
